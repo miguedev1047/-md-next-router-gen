@@ -43,7 +43,7 @@ Run the watcher in your Next.js project:
 npx next-router-gen
 ```
 
-Keep it running while you develop. Whenever you create an empty file (`page.tsx`, `layout.tsx`, or `route.ts`), the boilerplate will be inserted automatically.
+Keep it running while you develop. Whenever you create an empty file (`page.tsx`, `layout.tsx`, `route.ts`, `loading.ts` or `error.ts`), the boilerplate will be inserted automatically.
 
 ## ⚙️ Example
 
