@@ -12,7 +12,9 @@ This saves you time from writing repetitive code structures manually.
 - Auto-generates boilerplate for:
   - `page.tsx`
   - `layout.tsx`
-  - `route.ts`
+  - `route.ts`,
+  - `error.ts`,
+  - `loading.ts`,
 - Configuration file `next-router-gen.config.json` is automatically created.
 
 ## 📦 Installation

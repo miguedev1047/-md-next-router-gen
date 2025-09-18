@@ -1,0 +1,62 @@
+{
+  "name": "@md/next-router-gen",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automatic boilerplate text generator for Next.js (App Router) in real time.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.js"
+    }
+  },
+  "bin": {
+    "next-router-gen": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
+  },
+  "keywords": [
+    "nextjs",
+    "cli",
+    "boilerplate",
+    "router",
+    "generator",
+    "next-router-gen"
+  ],
+  "author": {
+    "name": "migueldev1047",
+    "email": "miguelangeljimenez1047@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguedev1047/next-router-gen.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/bun": "latest",
+    "eslint-config-prettier": "^10.1.8",
+    "typescript-eslint": "^8.44.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3"
+  }
+}
