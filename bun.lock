@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "@md/next-router-gen",
+      "name": "next-router-gen",
       "dependencies": {
         "chokidar": "^4.0.3",
       },

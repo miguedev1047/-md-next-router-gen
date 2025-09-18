@@ -79,7 +79,7 @@ In your `package.json`:
 {
   "scripts": {
     "dev": "next dev",
-    "routes:watch": "@md/next-router-gen"
+    "routes:watch": "next-router-gen"
   }
 }
 ```
