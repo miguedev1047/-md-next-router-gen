@@ -1,42 +1,29 @@
-import path from 'path';
+import { createPageTemplate, createErrorTemplate, createLayoutTemplate, createLoadingTemplate, createRouteTemplate, createTemplateTemplate, createDefaultTemplate, } from '../templates/index.js';
+import { getRouteSegment } from './utils.js';
+const TEMPLATE_GENERATORS = {
+    page: createPageTemplate,
+    layout: createLayoutTemplate,
+    template: createTemplateTemplate,
+    default: createDefaultTemplate,
+    route: createRouteTemplate,
+    loading: createLoadingTemplate,
+    error: createErrorTemplate,
+};
 export function getBoilerplate(fileName, filePath) {
-    const dirName = path.basename(path.dirname(filePath)) || 'app';
+    const dirName = getRouteSegment(filePath);
     const isTypescript = fileName.endsWith('.ts') || fileName.endsWith('.tsx');
-    const templates = {
-        page: () => `export default function Page() {
-  return <div>${dirName} page</div>
+    const fileType = extractFileType(fileName);
+    if (!fileType || !TEMPLATE_GENERATORS[fileType]) {
+        return '';
+    }
+    const context = { dirName, isTypescript };
+    return TEMPLATE_GENERATORS[fileType](context);
 }
-`,
-        layout: () => isTypescript
-            ? `export default function Layout({ children }: { children: React.ReactNode }) {
-  return <main>{children}</main>
-}
-`
-            : `export default function Layout({ children }) {
-  return <main>{children}</main>
-}
-`,
-        route: () => `import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello from ${dirName}" });
-}
-`,
-        loading: () => `export default function Loading() {
-  return <div>Loading ${dirName}...</div>
-}
-`,
-        error: () => isTypescript
-            ? `export default function Error({ error }: { error: Error }) {
-  return <div>Error: {error.message}</div>
-}
-`
-            : `export default function Error({ error }) {
-  return <div>Error: {error.message}</div>
-}
-`,
-    };
-    const baseName = fileName.split('.')[0];
-    return templates[baseName]?.() || '';
+function extractFileType(fileName) {
+    const baseName = fileName.split('.')[0] || '';
+    if (Object.keys(TEMPLATE_GENERATORS).includes(baseName)) {
+        return baseName;
+    }
+    return null;
 }
 //# sourceMappingURL=boilerplate.js.map
