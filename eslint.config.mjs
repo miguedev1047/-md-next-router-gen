@@ -1,5 +1,5 @@
 import js from '@eslint/js'
-import eslintConfigPrettier from 'eslint-config-prettier'
+import eslintConfigPrettier, { rules } from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
 
 export default [
@@ -15,6 +15,10 @@ export default [
     },
   },
   {
+    rules: {
+      'no-useless-escape': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
     ignores: ['eslint.config.mjs', 'dist/**', 'example.ts'],
   },
 ]
