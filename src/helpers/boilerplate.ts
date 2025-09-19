@@ -1,50 +1,47 @@
-import path from 'path'
+import {
+  createPageTemplate,
+  createErrorTemplate,
+  createLayoutTemplate,
+  createLoadingTemplate,
+  createRouteTemplate,
+  createTemplateTemplate,
+  createDefaultTemplate,
+} from '../templates/index.js'
+import { FileType, TemplateContext } from '../types/index.js'
+import { getRouteSegment } from './utils.js'
 
-export function getBoilerplate(fileName: string, filePath: string) {
-  const dirName = path.basename(path.dirname(filePath)) || 'app'
+const TEMPLATE_GENERATORS: Record<
+  FileType,
+  (context: TemplateContext) => string
+> = {
+  page: createPageTemplate,
+  layout: createLayoutTemplate,
+  template: createTemplateTemplate,
+  default: createDefaultTemplate,
+  route: createRouteTemplate,
+  loading: createLoadingTemplate,
+  error: createErrorTemplate,
+}
+
+export function getBoilerplate(fileName: string, filePath: string): string {
+  const dirName = getRouteSegment(filePath)
   const isTypescript = fileName.endsWith('.ts') || fileName.endsWith('.tsx')
+  const fileType = extractFileType(fileName)
 
-  const templates: Record<string, () => string> = {
-    page: () => `export default function Page() {
-  return <div>${dirName} page</div>
-}
-`,
-
-    layout: () =>
-      isTypescript
-        ? `export default function Layout({ children }: { children: React.ReactNode }) {
-  return <main>{children}</main>
-}
-`
-        : `export default function Layout({ children }) {
-  return <main>{children}</main>
-}
-`,
-
-    route: () => `import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello from ${dirName}" });
-}
-`,
-
-    loading: () => `export default function Loading() {
-  return <div>Loading ${dirName}...</div>
-}
-`,
-
-    error: () =>
-      isTypescript
-        ? `export default function Error({ error }: { error: Error }) {
-  return <div>Error: {error.message}</div>
-}
-`
-        : `export default function Error({ error }) {
-  return <div>Error: {error.message}</div>
-}
-`,
+  if (!fileType || !TEMPLATE_GENERATORS[fileType]) {
+    return ''
   }
-  const baseName = fileName.split('.')[0] as keyof typeof templates
 
-  return templates[baseName]?.() || ''
+  const context: TemplateContext = { dirName, isTypescript }
+  return TEMPLATE_GENERATORS[fileType](context)
+}
+
+function extractFileType(fileName: string): FileType | null {
+  const baseName = fileName.split('.')[0] || ''
+
+  if (Object.keys(TEMPLATE_GENERATORS).includes(baseName)) {
+    return baseName as FileType
+  }
+
+  return null
 }

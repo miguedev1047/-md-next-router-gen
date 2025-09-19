@@ -12,15 +12,4 @@ export function detectAppDir() {
   throw new Error('❌ Can"t found default paths: ["./app", "./src/app"]')
 }
 
-export function createConfig() {
-  const config = {
-    appDir: detectAppDir(),
-  }
-
-  fs.writeFileSync(
-    path.join(process.cwd(), 'next-router-gen.config.json'),
-    JSON.stringify(config, null, 2)
-  )
-
-  return config
-}
+export const appDir = detectAppDir()

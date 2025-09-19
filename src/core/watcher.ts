@@ -1,25 +1,21 @@
 import chokidar from 'chokidar'
 import fs from 'fs'
 import path from 'path'
-import { createConfig, getBoilerplate } from '../helpers/index.js'
 
-const FILES_ON_VIEW = [
-  'page.tsx',
-  'layout.tsx',
-  'route.ts',
-  'page.jsx',
-  'layout.jsx',
-  'route.js',
-]
+import { appDir, getBoilerplate, getRouteSegment } from '../helpers/index.js'
+import { FILES_ON_VIEW } from '../constants/index.js'
 
 export function startWatcher() {
-  const { appDir } = createConfig()
+  console.log(' ')
+  console.log(`🔍 Watching for new files in: ${appDir}`)
+  console.log(' ')
 
-  const watcher = chokidar.watch(`${appDir}/**/*.{ts,tsx}`, {
-    // eslint-disable-next-line no-useless-escape
-    ignored: /(^|[\/\\])\../,
+  const watcher = chokidar.watch(appDir, {
+    ignored: /(^|[/\\])\../,
     persistent: true,
-  });
+    ignoreInitial: true,
+    depth: 10,
+  })
 
   watcher.on('add', (filePath) => {
     const fileName = path.basename(filePath)
@@ -32,7 +28,9 @@ export function startWatcher() {
     const boilerplate = getBoilerplate(fileName, filePath)
     if (boilerplate) {
       fs.writeFileSync(filePath, boilerplate)
-      console.log(`✨ Route filled in: ${filePath}`)
+      console.log(' ')
+      console.log(`✨ Route filled in: "${getRouteSegment(filePath)}"`)
+      console.log(' ')
     }
   })
 }
