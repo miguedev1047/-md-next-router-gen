@@ -1,21 +1,22 @@
 # next-router-gen
 
-**next-router-gen** is a developer tool for Next.js projects using the **App Router**. It watches your `app/` (or `src/app/`) directory in real time and automatically generates boilerplate code for `page.tsx`, `layout.tsx`, and `route.ts` files when they are created empty.
+**next-router-gen** is a developer tool for Next.js projects using the **App Router**. It watches your `app/` (or `src/app/`) directory in real time and automatically generates boilerplate code for `page`, `layout`, `template`, `default`, `loading`, `error`, and `route` files when they are created empty.
 
 This saves you time from writing repetitive code structures manually.
 
 ## ✨ Features
 
 - Detects whether your project uses `./app` or `./src/app`.
-- Supports **TypeScript**.
+- Supports **TypeScript** & **JavaScript**.
 - Real-time **file watching**.
 - Auto-generates boilerplate for:
   - `page.tsx`
   - `layout.tsx`
+  - `template.tsx`
+  - `default.tsx`
+  - `error.tsx`,
+  - `loading.tsx`
   - `route.ts`,
-  - `error.ts`,
-  - `loading.ts`,
-- Configuration file `next-router-gen.config.json` is automatically created.
 
 ## 📦 Installation
 
@@ -43,7 +44,7 @@ Run the watcher in your Next.js project:
 npx next-router-gen
 ```
 
-Keep it running while you develop. Whenever you create an empty file (`page.tsx`, `layout.tsx`, `route.ts`, `loading.ts` or `error.ts`), the boilerplate will be inserted automatically.
+Keep it running while you develop. Whenever you create an empty file (`page.tsx`, `layout.tsx`, `template.tsx`, `default.tsx`, `loading.tsx`, `error.tsx`, or `route.ts`), the boilerplate will be inserted automatically.
 
 ## ⚙️ Example
 
@@ -61,16 +62,6 @@ export default function Page() {
 }
 ```
 
-## 📂 Generated Config
-
-When running for the first time, a file called `next-router-gen.config.json` will be generated:
-
-```json
-{
-  "appDir": "./src/app",
-}
-```
-
 ## 🛠 Scripts (recommended)
 
 In your `package.json`:
@@ -78,17 +69,9 @@ In your `package.json`:
 ```json
 {
   "scripts": {
-    "dev": "next dev",
-    "routes:watch": "next-router-gen"
+    "dev": "next-router-gen" // This use --turbo by default ✅
   }
 }
-```
-
-Run them together in two terminals:
-
-```bash
-npm run dev
-npm run routes:watch
 ```
 
 ## 📌 Roadmap
