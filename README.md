@@ -17,9 +17,9 @@ This saves you time from writing repetitive code structures manually.
   - `layout.tsx`
   - `template.tsx`
   - `default.tsx`
-  - `error.tsx`,
+  - `error.tsx`
   - `loading.tsx`
-  - `route.ts`,
+  - `route.ts`
 
 ## 📦 Installation
 
