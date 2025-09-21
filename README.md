@@ -4,6 +4,9 @@
 
 This saves you time from writing repetitive code structures manually.
 
+## 📷 Showcase
+![Watch the full demo](/src/assets/showcase.gif)
+
 ## ✨ Features
 
 - Detects whether your project uses `./app` or `./src/app`.
@@ -20,6 +23,8 @@ This saves you time from writing repetitive code structures manually.
 
 ## 📦 Installation
 
+With npm:
+
 ```bash
 npm install -D next-router-gen
 ```
@@ -33,7 +38,7 @@ yarn add -D next-router-gen
 With Bun:
 
 ```bash
-bun add next-router-gen -dev
+bun add next-router-gen -d
 ```
 
 ## 🚀 Usage
