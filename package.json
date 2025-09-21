@@ -1,6 +1,6 @@
 {
   "name": "next-router-gen",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Automatic boilerplate text generator for Next.js (App Router) in real time.",
   "main": "./dist/index.js",
